@@ -333,6 +333,14 @@ else:
             save_data(data)
             st.rerun()
 
+        st.divider()
+        st.download_button(
+        label="⬇️ Click this to download the updated tournament.json file after making your changes, so that you can use it later as a backup.",
+        data= json.dumps(data, indent=2, ensure_ascii=False),
+        file_name="tournament.json",
+        mime="application/json"
+    )
+
     with adm_tab2:
         team_names = [t["name"] for t in data["teams"]]
         sel_t_name = st.selectbox("Select Team to Edit", team_names)
@@ -357,3 +365,4 @@ else:
                 })
                 save_data(data)
                 st.rerun()
+
