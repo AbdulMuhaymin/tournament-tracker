@@ -208,20 +208,18 @@ st.markdown(f"## 🏆 {t_info.get('name', 'Football Tournament')}")
 st.caption(f"📍 {t_info.get('venue', '')}  |  ⏱️ {t_info.get('format', '')}")
 
 if mode == "Public Tracker":
-    tab_ov, tab_st, tab_stats, tab_squads = st.tabs(["Overview", "Standings", "Stats", "Squads"])
+    tab_ov, tab_st, tab_stats, tab_squads = st.tabs(["Matches", "Standings", "Stats", "Squads"])
 
     with tab_ov:
-        col_m, col_s = st.columns([1.35, 1])
-        with col_m:
-            st.markdown("<div class='g-card-title'>Matches</div>", unsafe_allow_html=True)
+        st.markdown("<div class='g-card-title'>Matches</div>", unsafe_allow_html=True)
+        matches = data["matches"]
+        for i in range(0, len(matches), 2):
             c1, c2 = st.columns(2)
-            for i, m in enumerate(data["matches"]):
-                target_col = c1 if i % 2 == 0 else c2
-                with target_col:
-                    st.markdown(render_match_card(m, team_badges), unsafe_allow_html=True)
-
-    with col_s:
-        st.markdown(render_standings_html(standings, full=False), unsafe_allow_html=True)
+            with c1:
+                st.markdown(render_match_card(matches[i], team_badges), unsafe_allow_html=True)
+            if i + 1 < len(matches):
+                with c2:
+                    st.markdown(render_match_card(matches[i + 1], team_badges), unsafe_allow_html=True)
 
     with tab_st:
         st.markdown(render_standings_html(standings, full=True), unsafe_allow_html=True)
