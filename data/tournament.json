@@ -10,12 +10,36 @@
       "name": "Reviewer 2",
       "badge": "🔴",
       "players": [
-        {"name": "Tariq Mahmood", "price": 700, "position": "Forward"},
-        {"name": "Kazi Sanim", "price": 500, "position": "Forward"},
-        {"name": "Ahosan Habib Priom", "price": 500, "position": "Defender"},
-        {"name": "Fardin Ishtiaq Araf", "price": 320, "position": "Defender"},
-        {"name": "Subhangshu Sen", "price": 210, "position": "Goalkeeper"},
-        {"name": "Mahmud Wasif Nafee", "price": 150, "position": "Defender"}
+        {
+          "name": "Tariq Mahmood",
+          "price": 700,
+          "position": "Forward"
+        },
+        {
+          "name": "Kazi Sanim",
+          "price": 500,
+          "position": "Forward"
+        },
+        {
+          "name": "Ahosan Habib Priom",
+          "price": 500,
+          "position": "Defender"
+        },
+        {
+          "name": "Fardin Ishtiaq Araf",
+          "price": 320,
+          "position": "Defender"
+        },
+        {
+          "name": "Subhangshu Sen",
+          "price": 210,
+          "position": "Goalkeeper"
+        },
+        {
+          "name": "Mahmud Wasif Nafee",
+          "price": 150,
+          "position": "Defender"
+        }
       ]
     },
     {
@@ -23,13 +47,41 @@
       "name": "FC Sinners",
       "badge": "🔵",
       "players": [
-        {"name": "Meftah Zaki", "price": 750, "position": "Midfielder"},
-        {"name": "Shahriar Mahmood", "price": 320, "position": "Defender"},
-        {"name": "Ehsanul Haque Ayon", "price": 320, "position": "Defender"},
-        {"name": "AFM Saif", "price": 310, "position": "Midfielder"},
-        {"name": "Mohammed Abu Thaher Chowdhury", "price": 290, "position": "Goalkeeper"},
-        {"name": "Intishar Nur", "price": 280, "position": "Defender"},
-        {"name": "Saidur Rahman Shakil", "price": 130, "position": "Defender"}
+        {
+          "name": "Meftah Zaki",
+          "price": 750,
+          "position": "Midfielder"
+        },
+        {
+          "name": "Shahriar Mahmood",
+          "price": 320,
+          "position": "Defender"
+        },
+        {
+          "name": "Ehsanul Haque Ayon",
+          "price": 320,
+          "position": "Defender"
+        },
+        {
+          "name": "AFM Saif",
+          "price": 310,
+          "position": "Midfielder"
+        },
+        {
+          "name": "Mohammed Abu Thaher Chowdhury",
+          "price": 290,
+          "position": "Goalkeeper"
+        },
+        {
+          "name": "Intishar Nur",
+          "price": 280,
+          "position": "Defender"
+        },
+        {
+          "name": "Saidur Rahman Shakil",
+          "price": 130,
+          "position": "Defender"
+        }
       ]
     },
     {
@@ -37,13 +89,41 @@
       "name": "KoRa7 FC",
       "badge": "🟢",
       "players": [
-        {"name": "Rakib Hossain", "price": 820, "position": "Midfielder"},
-        {"name": "Riyad Hasan", "price": 550, "position": "Forward"},
-        {"name": "Yashdi Saif Autul", "price": 360, "position": "Midfielder"},
-        {"name": "Saad Zaman", "price": 270, "position": "Defender"},
-        {"name": "Md Lutfar Rahman Sarkar", "price": 150, "position": "Forward"},
-        {"name": "Mohaiminur Rahman Shovon", "price": 130, "position": "Goalkeeper"},
-        {"name": "Tajwar Razib", "price": 120, "position": "Forward"}
+        {
+          "name": "Rakib Hossain",
+          "price": 820,
+          "position": "Midfielder"
+        },
+        {
+          "name": "Riyad Hasan",
+          "price": 550,
+          "position": "Forward"
+        },
+        {
+          "name": "Yashdi Saif Autul",
+          "price": 360,
+          "position": "Midfielder"
+        },
+        {
+          "name": "Saad Zaman",
+          "price": 270,
+          "position": "Defender"
+        },
+        {
+          "name": "Md Lutfar Rahman Sarkar",
+          "price": 150,
+          "position": "Forward"
+        },
+        {
+          "name": "Mohaiminur Rahman Shovon",
+          "price": 130,
+          "position": "Goalkeeper"
+        },
+        {
+          "name": "Tajwar Razib",
+          "price": 120,
+          "position": "Forward"
+        }
       ]
     },
     {
@@ -52,13 +132,41 @@
       "full_name": "Parallel Universe FC",
       "badge": "🟡",
       "players": [
-        {"name": "Shahrear Jahan Santho", "price": 750, "position": "Midfielder"},
-        {"name": "Nymul Yeachin", "price": 510, "position": "Forward"},
-        {"name": "Abdul Muhaymin", "price": 440, "position": "Goalkeeper"},
-        {"name": "Maruf Ahmed Mridul", "price": 260, "position": "Forward"},
-        {"name": "Md Marjanul Haque", "price": 240, "position": "Defender"},
-        {"name": "Md Shahedul Haque Shawon", "price": 120, "position": "Defender"},
-        {"name": "Sayed Tanvir Derik", "price": 0, "position": "Defender"}
+        {
+          "name": "Shahrear Jahan Santho",
+          "price": 750,
+          "position": "Midfielder"
+        },
+        {
+          "name": "Nymul Yeachin",
+          "price": 510,
+          "position": "Forward"
+        },
+        {
+          "name": "Abdul Muhaymin",
+          "price": 440,
+          "position": "Goalkeeper"
+        },
+        {
+          "name": "Maruf Ahmed Mridul",
+          "price": 260,
+          "position": "Forward"
+        },
+        {
+          "name": "Md Marjanul Haque",
+          "price": 240,
+          "position": "Defender"
+        },
+        {
+          "name": "Md Shahedul Haque Shawon",
+          "price": 120,
+          "position": "Defender"
+        },
+        {
+          "name": "Sayed Tanvir Derik",
+          "price": 0,
+          "position": "Defender"
+        }
       ]
     }
   ],
@@ -75,7 +183,11 @@
       "score2": 0,
       "status": "FT",
       "events": [
-        {"type": "goal", "team": "Reviewer 2", "player": "Tariq Mahmood"}
+        {
+          "type": "goal",
+          "team": "Reviewer 2",
+          "player": "Tariq Mahmood"
+        }
       ]
     },
     {
@@ -90,7 +202,11 @@
       "score2": 1,
       "status": "FT",
       "events": [
-        {"type": "own_goal", "team": "PUFC", "player": "Own Goal (KoRa7 FC)"}
+        {
+          "type": "own_goal",
+          "team": "PUFC",
+          "player": "Own Goal (KoRa7 FC)"
+        }
       ]
     },
     {
@@ -101,10 +217,16 @@
       "time": "5:30 - 6:15 PM",
       "team1": "Reviewer 2",
       "team2": "PUFC",
-      "score1": null,
-      "score2": null,
-      "status": "Upcoming",
-      "events": []
+      "score1": 0,
+      "score2": 1,
+      "status": "FT",
+      "events": [
+        {
+          "type": "goal",
+          "team": "PUFC",
+          "player": "Maruf Ahmed Mridul"
+        }
+      ]
     },
     {
       "id": "m4",
@@ -114,10 +236,21 @@
       "time": "6:25 - 7:10 PM",
       "team1": "KoRa7 FC",
       "team2": "FC Sinners",
-      "score1": null,
-      "score2": null,
-      "status": "Upcoming",
-      "events": []
+      "score1": 1,
+      "score2": 1,
+      "status": "FT",
+      "events": [
+        {
+          "type": "goal",
+          "team": "KoRa7 FC",
+          "player": "Riyad Hasan"
+        },
+        {
+          "type": "goal",
+          "team": "FC Sinners",
+          "player": "Meftah Zaki"
+        }
+      ]
     },
     {
       "id": "m5",
@@ -150,7 +283,7 @@
       "stage": "The Final",
       "matchday": 4,
       "date": "Wed, Oct 21",
-      "time": "9:00 - 11:00 PM",
+      "time": "8:00 - 10:00 PM",
       "team1": "1st Place",
       "team2": "2nd Place",
       "score1": null,
