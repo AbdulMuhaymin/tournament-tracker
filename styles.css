@@ -144,50 +144,41 @@ footer {visibility: hidden;}
     vertical-align: middle;
 }
 
-/* Fix title & caption visibility when phone is in Dark Mode */
-.stApp h1, .stApp h2, .stApp h3, .stCaption, [data-testid="stCaptionContainer"] p {
-    color: #202124 !important;
-}
-
-/* Style Streamlit Tabs as Google Pill Buttons */
-div[data-baseweb="tab-list"] {
+/* Pill buttons for tabs on all mobile browsers */
+.stTabs [data-baseweb="tab-list"] {
     gap: 8px !important;
     border-bottom: none !important;
-    padding-bottom: 8px !important;
-    flex-wrap: wrap !important;
 }
 
-div[data-baseweb="tab-highlight"],
-div[data-baseweb="tab-border"] {
+.stTabs [data-baseweb="tab-highlight"],
+.stTabs [data-baseweb="tab-border"] {
     display: none !important;
 }
 
-button[data-baseweb="tab"] {
-    background-color: #ecedef !important;
+.stTabs [data-baseweb="tab"] {
+    background-color: #ffffff !important;
     border: 1px solid #dadce0 !important;
     border-radius: 20px !important;
-    padding: 6px 14px !important;
-    height: auto !important;
+    padding: 6px 16px !important;
     opacity: 1 !important;
 }
 
-button[data-baseweb="tab"] p,
-button[data-baseweb="tab"] span,
-button[data-baseweb="tab"] div {
-    color: #3c4043 !important;
-    font-weight: 500 !important;
-    font-size: 13px !important;
-}
-
-/* Active / Selected Tab Button */
-button[data-baseweb="tab"][aria-selected="true"] {
-    background-color: #e8f0fe !important;
-    border: 1px solid #1a73e8 !important;
-}
-
-button[data-baseweb="tab"][aria-selected="true"] p,
-button[data-baseweb="tab"][aria-selected="true"] span,
-button[data-baseweb="tab"][aria-selected="true"] div {
-    color: #1a73e8 !important;
+.stTabs [data-baseweb="tab"],
+.stTabs [data-baseweb="tab"] * {
+    color: #202124 !important;
+    -webkit-text-fill-color: #202124 !important;
     font-weight: 600 !important;
+    font-size: 13px !important;
+    opacity: 1 !important;
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    background-color: #1a73e8 !important;
+    border-color: #1a73e8 !important;
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"],
+.stTabs [data-baseweb="tab"][aria-selected="true"] * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
