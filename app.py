@@ -88,7 +88,7 @@ def calculate_standings(data):
 
 
 def calculate_player_stats(data):
-    goals, yellows, reds = {}, {}, {}
+    goals, assists = {}, {}
     team_badges = {t["name"]: t.get("badge", "⚽") for t in data["teams"]}
 
     for m in data["matches"]:
@@ -96,17 +96,57 @@ def calculate_player_stats(data):
             etype = ev.get("type")
             player = ev.get("player")
             team = ev.get("team")
-            key = (player, team, team_badges.get(team, "⚽"))
+            badge = team_badges.get(team, "⚽")
 
             if etype == "goal":
+                key = (player, team, badge)
                 goals[key] = goals.get(key, 0) + 1
-            elif etype == "yellow":
-                yellows[key] = yellows.get(key, 0) + 1
-            elif etype == "red":
-                reds[key] = reds.get(key, 0) + 1
+                ast = ev.get("assist")
+                if ast and ast != "None":
+                    akey = (ast, team, badge)
+                    assists[akey] = assists.get(akey, 0) + 1
+            elif etype == "assist":
+                key = (player, team, badge)
+                assists[key] = assists.get(key, 0) + 1
 
     sort_fn = lambda d: sorted(d.items(), key=lambda x: x[1], reverse=True)
-    return sort_fn(goals), sort_fn(yellows), sort_fn(reds)
+    return sort_fn(goals), sort_fn(assists)
+
+
+def calculate_gk_stats(data):
+    gks = {}
+    for t in data["teams"]:
+        badge = t.get("badge", "⚽")
+        for p in t.get("players", []):
+            if p.get("position") == "Goalkeeper":
+                gks[t["name"]] = {
+                    "name": p["name"],
+                    "team": t["name"],
+                    "badge": badge,
+                    "MP": 0, "GC": 0, "CS": 0
+                }
+
+    for m in data["matches"]:
+        if m["status"] not in ("FT", "LIVE") or m["score1"] is None or m["score2"] is None:
+            continue
+        t1, t2 = m["team1"], m["team2"]
+        s1, s2 = int(m["score1"]), int(m["score2"])
+
+        if t1 in gks:
+            gks[t1]["MP"] += 1
+            if m.get("standin_gk_team") != t1:
+                gks[t1]["GC"] += s2
+            if m["status"] == "FT" and s2 == 0:
+                gks[t1]["CS"] += 1
+        if t2 in gks:
+            gks[t2]["MP"] += 1
+            if m.get("standin_gk_team") != t2:
+                gks[t2]["GC"] += s1
+            if m["status"] == "FT" and s1 == 0:
+                gks[t2]["CS"] += 1
+
+    # Ranked by Clean Sheets (highest first), then Goals Conceded (lowest first)
+    return sorted(gks.values(), key=lambda x: (-x["CS"], x["GC"]))
 
 
 def render_match_card(m, team_badges):
@@ -135,7 +175,10 @@ def render_match_card(m, team_badges):
     ev_list = []
     for e in m.get("events", []):
         if e["type"] == "goal":
-            ev_list.append(f"⚽ {e['player']} ({e['team']})")
+            ast = f" (🅰️ {e['assist']})" if e.get("assist") and e.get("assist") != "None" else ""
+            ev_list.append(f"⚽ {e['player']}{ast} ({e['team']})")
+        elif e["type"] == "assist":
+            ev_list.append(f"🅰️ {e['player']} ({e['team']})")
         elif e["type"] == "own_goal":
             ev_list.append(f"⚽ {e['player']} [OG]")
         elif e["type"] == "yellow":
@@ -225,8 +268,9 @@ if mode == "Public Tracker":
         st.markdown(render_standings_html(standings, full=True), unsafe_allow_html=True)
 
     with tab_stats:
-        goals, yellows, reds = calculate_player_stats(data)
-        c_g, c_y, c_r = st.columns(3)
+        goals, assists = calculate_player_stats(data)
+        gk_stats = calculate_gk_stats(data)
+        c_g, c_a, c_gk = st.columns(3)
 
         def render_stat_box(title, items, label):
             if not items:
@@ -236,12 +280,28 @@ if mode == "Public Tracker":
                 rows += f"<tr><td class='left'>{idx}. <b>{player}</b><br><span style='font-size:11px;color:#70757a;'>{badge} {team}</span></td><td><b>{count}</b></td></tr>"
             return f"<div class='g-card'><div class='g-card-title'>{title}</div><table class='g-table'><thead><tr><th class='left'>Player</th><th>{label}</th></tr></thead><tbody>{rows}</tbody></table></div>"
 
+        def render_gk_box(gks):
+            rows = ""
+            for idx, g in enumerate(gks, 1):
+                rows += (
+                    f"<tr>"
+                    f"<td class='left'>{idx}. <b>{g['name']}</b><br><span style='font-size:11px;color:#70757a;'>{g['badge']} {g['team']}</span></td>"
+                    f"<td>{g['MP']}</td><td>{g['GC']}</td><td><b>{g['CS']}</b></td>"
+                    f"</tr>"
+                )
+            note = "<div style='font-size:11px;color:#70757a;margin-top:8px;'>* Fardin Ishtiaq Araf (🔴 Reviewer 2) conceded 1 goal as stand-in GK vs PUFC.</div>"
+            return (
+                f"<div class='g-card'><div class='g-card-title'>🧤 Goalkeepers</div>"
+                f"<table class='g-table'><thead><tr><th class='left'>Player</th><th>MP</th><th>GC</th><th>CS</th></tr></thead>"
+                f"<tbody>{rows}</tbody></table>{note}</div>"
+            )
+
         with c_g:
             st.markdown(render_stat_box("⚽ Top Scorers", goals, "Goals"), unsafe_allow_html=True)
-        with c_y:
-            st.markdown(render_stat_box("🟨 Yellow Cards", yellows, "Cards"), unsafe_allow_html=True)
-        with c_r:
-            st.markdown(render_stat_box("🟥 Red Cards", reds, "Cards"), unsafe_allow_html=True)
+        with c_a:
+            st.markdown(render_stat_box("🅰️ Top Assists", assists, "Assists"), unsafe_allow_html=True)
+        with c_gk:
+            st.markdown(render_gk_box(gk_stats), unsafe_allow_html=True)
 
     with tab_squads:
         cols = st.columns(2)
@@ -300,34 +360,39 @@ else:
             st.rerun()
 
         st.divider()
-        st.subheader("Match Events (Goals & Cards)")
+        st.subheader("Match Events (Goals, Assists & Cards)")
 
         for idx, ev in enumerate(sel_match.get("events", [])):
             ec1, ec2 = st.columns([4, 1])
-            ec1.write(f"**{ev['type'].upper()}** — {ev['player']} ({ev['team']})")
+            ast_txt = f" | Assist: {ev['assist']}" if ev.get("assist") and ev.get("assist") != "None" else ""
+            ec1.write(f"**{ev['type'].upper()}** — {ev['player']} ({ev['team']}){ast_txt}")
             if ec2.button("🗑️ Remove", key=f"del_ev_{idx}"):
                 sel_match["events"].pop(idx)
                 save_data(data)
                 st.rerun()
 
         st.markdown("#### Add New Event")
-        ev_c1, ev_c2, ev_c3 = st.columns(3)
+        ev_c1, ev_c2, ev_c3, ev_c4 = st.columns(4)
         ev_team = ev_c1.selectbox("Team", [sel_match["team1"], sel_match["team2"]])
-        ev_type = ev_c2.selectbox("Event Type", ["goal", "own_goal", "yellow", "red"])
+        ev_type = ev_c2.selectbox("Event Type", ["goal", "assist", "own_goal", "yellow", "red"])
 
         team_obj = next((t for t in data["teams"] if t["name"] == ev_team), None)
-        player_opts = [p["name"] for p in team_obj.get("players", [])] if team_obj else []
-        player_opts.append(f"Own Goal ({sel_match['team1']})")
-        player_opts.append(f"Own Goal ({sel_match['team2']})")
+        base_players = [p["name"] for p in team_obj.get("players", [])] if team_obj else []
+        player_opts = base_players + [f"Own Goal ({sel_match['team1']})", f"Own Goal ({sel_match['team2']})"]
 
         ev_player = ev_c3.selectbox("Player", player_opts)
 
+        if ev_type == "goal":
+            assist_opts = ["None"] + [p for p in base_players if p != ev_player]
+            ev_assist = ev_c4.selectbox("Assisted By", assist_opts)
+        else:
+            ev_assist = "None"
+
         if st.button("➕ Add Event"):
-            sel_match.setdefault("events", []).append({
-                "type": ev_type,
-                "team": ev_team,
-                "player": ev_player
-            })
+            new_ev = {"type": ev_type, "team": ev_team, "player": ev_player}
+            if ev_type == "goal" and ev_assist != "None":
+                new_ev["assist"] = ev_assist
+            sel_match.setdefault("events", []).append(new_ev)
             save_data(data)
             st.rerun()
 

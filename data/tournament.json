@@ -220,11 +220,13 @@
       "score1": 0,
       "score2": 1,
       "status": "FT",
+      "standin_gk_team": "Reviewer 2",
       "events": [
         {
           "type": "goal",
           "team": "PUFC",
-          "player": "Maruf Ahmed Mridul"
+          "player": "Maruf Ahmed Mridul",
+          "assist": "Nymul Yeachin"
         }
       ]
     },
@@ -243,12 +245,14 @@
         {
           "type": "goal",
           "team": "KoRa7 FC",
-          "player": "Riyad Hasan"
+          "player": "Riyad Hasan",
+          "assist": "Mohaiminur Rahman Shovon"
         },
         {
           "type": "goal",
           "team": "FC Sinners",
-          "player": "Meftah Zaki"
+          "player": "Meftah Zaki",
+          "assist": "Intishar Nur"
         }
       ]
     },
@@ -260,9 +264,9 @@
       "time": "9:00 - 9:45 PM",
       "team1": "FC Sinners",
       "team2": "PUFC",
-      "score1": null,
-      "score2": null,
-      "status": "Upcoming",
+      "score1": 0,
+      "score2": 0,
+      "status": "FT",
       "events": []
     },
     {
@@ -273,10 +277,23 @@
       "time": "10:00 - 10:45 PM",
       "team1": "Reviewer 2",
       "team2": "KoRa7 FC",
-      "score1": null,
-      "score2": null,
-      "status": "Upcoming",
-      "events": []
+      "score1": 2,
+      "score2": 0,
+      "status": "FT",
+      "events": [
+        {
+          "type": "goal",
+          "team": "Reviewer 2",
+          "player": "Tariq Mahmood",
+          "assist": "Ahosan Habib Priom"
+        },
+        {
+          "type": "goal",
+          "team": "Reviewer 2",
+          "player": "Kazi Sanim",
+          "assist": "Ahosan Habib Priom"
+        }
+      ]
     },
     {
       "id": "m_final",
@@ -284,8 +301,8 @@
       "matchday": 4,
       "date": "Wed, Oct 21",
       "time": "8:00 - 10:00 PM",
-      "team1": "1st Place",
-      "team2": "2nd Place",
+      "team1": "PUFC",
+      "team2": "Reviewer 2",
       "score1": null,
       "score2": null,
       "status": "Upcoming",
